@@ -4,57 +4,74 @@ const data = [
     { category: 'Grundlagen', de: 'Tisch', en: 'Table', phonetic: 'teibl' },
     { category: 'Geschäftswelt', de: 'Besprechung', en: 'Meeting', phonetic: 'miiting' },
     { category: 'Geschäftswelt', de: 'Abgabetermin', en: 'Deadline', phonetic: 'dedlain' },
-    { category: 'Notfallhilfen', de: 'Rufen Sie einen Krankenwagen!', en: 'Call an ambulance!', phonetic: 'kol än ämäbläns' },
+    { category: 'Notfallhilfen', de: 'Rufen Sie einen Krankenwagen!', en: 'Call an ambulance!', phonetic: 'kol än ämbjulänz' },
     { category: 'Notfallhilfen', de: 'Haben Sie Schmerzen?', en: 'Do you feel pain?', phonetic: 'du ju fiil päin' }
 ];
 
 let currentDirection = '';
-let currentCategory = '';
 let currentIndex = 0;
-const flashcardDiv = document.getElementById('flashcard');
-const categorySelectionDiv = document.getElementById('category-selection');
-const directionSelectionDiv = document.getElementById('direction-selection');
+const dailyWords = 5;
+let shuffledData = [];
 
 function selectDirection(direction) {
     currentDirection = direction;
-    directionSelectionDiv.style.display = 'none';
-    categorySelectionDiv.style.display = 'block';
-}
-
-function startLearning(category) {
-    currentCategory = category;
+    shuffledData = shuffle(data).slice(0, dailyWords);
     currentIndex = 0;
-    categorySelectionDiv.style.display = 'none';
     showFlashcard();
 }
 
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
 function showFlashcard() {
-    const filteredData = data.filter(item => item.category === currentCategory);
-    if (currentIndex < filteredData.length) {
-        const currentItem = filteredData[currentIndex];
-        document.getElementById('front-side').classList.add('visible');
-        document.getElementById('back-side').classList.remove('visible');
-        document.getElementById('word-text').innerText = currentDirection === 'de-en' ? currentItem.de : currentItem.en;
-        document.getElementById('translation-text').innerText = currentDirection === 'de-en' ? currentItem.en : currentItem.de;
-        document.getElementById('phonetic-text').innerText = currentDirection === 'de-en' ? currentItem.phonetic : '';
-        flashcardDiv.style.display = 'block';
+    if (currentIndex < shuffledData.length) {
+        const currentItem = shuffledData[currentIndex];
+        const frontText = currentDirection === 'de-en' ? currentItem.de : currentItem.en;
+        const backText = currentDirection === 'de-en' ? `${currentItem.en}<br>Lautschrift: ${currentItem.phonetic}` : currentItem.de;
+
+        document.body.innerHTML = `
+            <div class="card" style="border: 1px solid #ddd; border-radius: 10px; padding: 20px; max-width: 300px; margin: auto; text-align: center;">
+                <div id="front" style="display: block;">${frontText}</div>
+                <div id="back" style="display: none;">${backText}</div>
+                <button onclick="playAudio('${currentItem.en}')" style="background-color: transparent; border: none; cursor: pointer; margin-top: 10px;">
+                    🔊
+                </button>
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="flipCard()" style="padding: 10px 20px; background-color: #ffc107; border: none; border-radius: 5px;">Umdrehen</button>
+                <button onclick="nextCard()" style="padding: 10px 20px; background-color: #28a745; border: none; border-radius: 5px;">Weiter (${currentIndex + 1}/${dailyWords})</button>
+            </div>
+        `;
     } else {
-        endLearning();
+        document.body.innerHTML = '<p>Du hast alle Wörter für heute gelernt!</p>';
     }
 }
 
 function flipCard() {
-    document.getElementById('front-side').classList.toggle('visible');
-    document.getElementById('back-side').classList.toggle('visible');
+    const front = document.getElementById('front');
+    const back = document.getElementById('back');
+    if (front.style.display === 'none') {
+        front.style.display = 'block';
+        back.style.display = 'none';
+    } else {
+        front.style.display = 'none';
+        back.style.display = 'block';
+    }
 }
 
-function showNextCard() {
+function nextCard() {
     currentIndex++;
     showFlashcard();
 }
 
-function endLearning() {
-    flashcardDiv.style.display = 'none';
-    categorySelectionDiv.style.display = 'none';
-    directionSelectionDiv.style.display = 'block';
+function playAudio(text) {
+    fetch('https://api.mozilla.org/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, lang: 'en-US' })
+    }).then(response => response.blob()).then(blob => {
+        const audio = new Audio(URL.createObjectURL(blob));
+        audio.play();
+    }).catch(error => console.error('TTS Error:', error));
 }
