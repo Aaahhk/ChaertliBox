@@ -51,12 +51,16 @@ function showFlashcard() {
 function flipCard() {
     const front = document.getElementById('front');
     const back = document.getElementById('back');
-    if (front.style.display === 'none') {
-        front.style.display = 'block';
-        back.style.display = 'none';
+    if (front && back) { // Ensure elements exist before accessing
+        if (front.style.display === 'none') {
+            front.style.display = 'block';
+            back.style.display = 'none';
+        } else {
+            front.style.display = 'none';
+            back.style.display = 'block';
+        }
     } else {
-        front.style.display = 'none';
-        back.style.display = 'block';
+        console.error('FlipCard error: Elements not found');
     }
 }
 
