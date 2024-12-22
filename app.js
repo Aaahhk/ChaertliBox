@@ -70,12 +70,11 @@ function nextCard() {
 }
 
 function playAudio(text) {
-    fetch('https://api.mozilla.org/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, lang: 'en-US' })
-    }).then(response => response.blob()).then(blob => {
-        const audio = new Audio(URL.createObjectURL(blob));
-        audio.play();
-    }).catch(error => console.error('TTS Error:', error));
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        speechSynthesis.speak(utterance);
+    } else {
+        console.error('SpeechSynthesis is not supported in this browser.');
+    }
 }
