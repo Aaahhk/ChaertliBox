@@ -70,11 +70,10 @@ function nextCard() {
 }
 
 function playAudio(text) {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        speechSynthesis.speak(utterance);
+    // Using ResponsiveVoice.js for TTS
+    if (typeof responsiveVoice !== 'undefined') {
+        responsiveVoice.speak(text, "US English Female");
     } else {
-        console.error('SpeechSynthesis is not supported in this browser.');
+        console.error('ResponsiveVoice.js is not loaded or not supported in this browser.');
     }
 }
