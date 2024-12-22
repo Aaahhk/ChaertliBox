@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChärtliBox</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        footer {
+            margin-top: auto;
+            font-size: 12px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ChärtliBox</h1>
+        <p>Bitte wähle die Lernrichtung:</p>
+        <button class="button" onclick="selectDirection('de-en')" style="background-color: #007bff; color: white;">Deutsch → Englisch</button>
+        <button class="button" onclick="selectDirection('en-de')" style="background-color: #6c757d; color: white;">Englisch → Deutsch</button>
+    </div>
+    <footer id="footer"></footer>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+            .then(registration => console.log('Service Worker registered:', registration))
+            .catch(error => console.error('Service Worker registration failed:', error));
+        }
+        
+        // Add version and timestamp to the footer
+        const version = "1.0";
+        const timestamp = new Date().toLocaleString();
+        document.getElementById("footer").innerText = `Version: ${version} | Stand: ${timestamp}`;
+    </script>
+</body>
+</html>

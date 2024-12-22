@@ -1,0 +1,92 @@
+[
+    {
+        "category": "Grundlagen",
+        "de": "Hallo",
+        "en": "Hello",
+        "phonetic": "hə-loʊ"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Danke",
+        "en": "Thank you",
+        "phonetic": "θæŋk ju"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Tschüss",
+        "en": "Goodbye",
+        "phonetic": "ɡʊd-baɪ"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Bitte",
+        "en": "Please",
+        "phonetic": "pliːz"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Ja",
+        "en": "Yes",
+        "phonetic": "jɛs"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Nein",
+        "en": "No",
+        "phonetic": "noʊ"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Wie geht's?",
+        "en": "How are you?",
+        "phonetic": "haʊ ɑr ju"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Mir geht's gut",
+        "en": "I'm fine",
+        "phonetic": "aɪm faɪn"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Entschuldigung",
+        "en": "Sorry",
+        "phonetic": "ˈsɔːri"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Waschmaschine",
+        "en": "Washing machine",
+        "phonetic": "ˈwɑːʃɪŋ məˌʃiːn"
+    },
+    {
+        "category": "Grundlagen",
+        "de": "Tisch",
+        "en": "Table",
+        "phonetic": "ˈteɪbl"
+    },
+    {
+        "category": "Geschäftswelt",
+        "de": "Besprechung",
+        "en": "Meeting",
+        "phonetic": "ˈmiːtɪŋ"
+    },
+    {
+        "category": "Geschäftswelt",
+        "de": "Abgabetermin",
+        "en": "Deadline",
+        "phonetic": "ˈdɛdˌlaɪn"
+    },
+    {
+        "category": "Notfallhilfen",
+        "de": "Rufen Sie einen Krankenwagen!",
+        "en": "Call an ambulance!",
+        "phonetic": "kɔːl æn ˈæmbjələns"
+    },
+    {
+        "category": "Notfallhilfen",
+        "de": "Haben Sie Schmerzen?",
+        "en": "Do you feel pain?",
+        "phonetic": "du ju fiːl peɪn"
+    }
+]
